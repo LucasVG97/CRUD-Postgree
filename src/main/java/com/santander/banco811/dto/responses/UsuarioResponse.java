@@ -1,4 +1,4 @@
-package com.santander.banco811.dto;
+package com.santander.banco811.dto.responses;
 
 import com.santander.banco811.model.Usuario;
 import lombok.AllArgsConstructor;
@@ -28,8 +28,8 @@ public class UsuarioResponse {
         this.dataAtualizacao = usuario.getDataAtualizacao();
     }
 
-    public static List<UsuarioResponse> toResponse(List<Usuario> usuarios){
-        return usuarios.stream().map(UsuarioResponse::new).collect(Collectors.toList());
-    }
+//    public static List<UsuarioResponse> toResponse(List<Usuario> usuarios){
+//        return usuarios.stream().map(UsuarioResponse::new).collect(Collectors.toList());
+//    }
 
 }

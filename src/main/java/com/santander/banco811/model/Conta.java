@@ -1,9 +1,10 @@
 package com.santander.banco811.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.hibernate.annotations.UpdateTimestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.santander.banco811.dto.requests.ContaRequest;
+import com.santander.banco811.dto.responses.ContaResponse;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -17,6 +18,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @EntityListeners(AuditingEntityListener.class)
 public class Conta {
 
@@ -46,6 +49,18 @@ public class Conta {
     private LocalDateTime dataAtualizacao;
 
     @ManyToOne(cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    @JsonIgnore
     private Usuario usuario;
+
+    public Conta(ContaRequest contaRequest) {
+        this.numero = contaRequest.getNumero();
+        this.agencia = contaRequest.getAgencia();
+        this.tipoConta = contaRequest.getTipoConta();
+        this.saldo = contaRequest.getSaldo();
+        this.usuario = contaRequest.getUsuario();
+    }
+
+
 }
